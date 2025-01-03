@@ -1,0 +1,6 @@
+python-dotenv
+flask
+PyMuPDF==1.24.9
+openai
+requests
+psycopg2-binary
