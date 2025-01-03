@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>File Upload</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-5">Upload Image or PDF</h1>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="file">Choose file</label>
+          <input type="text" name="user_input" required>
+          <input type="file" class="form-control" id="file" name="file" required>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+      <div id="result" class="mt-3"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('#uploadForm').on('submit', function (event) {
+          event.preventDefault();
+          var formData = new FormData(this);
+          $.ajax({
+            url: '/upload',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+              $('#result').html('<div class="alert alert-success">' + response.message + '</div>');
+            },
+            error: function (response) {
+              $('#result').html('<div class="alert alert-danger">Error uploading file</div>');
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
